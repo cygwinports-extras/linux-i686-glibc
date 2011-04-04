@@ -5,7 +5,7 @@ inherit cross
 DESCRIPTION="glibc for Linux i686 toolchain"
 HOMEPAGE="http://www.gnu.org/software/libc/"
 SRC_URI="mirror://gnu/glibc/glibc-${PV}.tar.xz"
-PATCH_URI="http://www.linuxfromscratch.org/patches/downloads/glibc/glibc-2.12.1-gcc_fix-1.patch"
+PATCH_URI="http://www.linuxfromscratch.org/patches/downloads/glibc/glibc-2.13-gcc_fix-1.patch"
 
 DIFF_EXCLUDES="manual"
 
