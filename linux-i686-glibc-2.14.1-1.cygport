@@ -22,4 +22,8 @@ src_install() {
 	cyginstall install_root=${D}
 
 	cross_desysrootize ${CROSS_LIBDIR}/lib{c,pthread}.so
+
+	rm -f ${D}${CROSS_SYSROOT}/{etc,usr/bin,usr/sbin}/*
+	rm -fr ${D}${CROSS_LIBDIR}/*/
+	rm -fr ${D}${CROSS_DATADIR}/{i18n,locale,zoneinfo}/
 }
