@@ -9,12 +9,10 @@ PATCH_URI="http://www.linuxfromscratch.org/patches/downloads/glibc/glibc-2.13-gc
 
 DIFF_EXCLUDES="manual"
 
-DEPS_PATH="/usr/lib/gconv"
-
 src_compile() {
 	cd ${B}
 	cygconf
-	cygmake
+	cygmake -j1 PARALLELMFLAGS="${MAKEOPTS}"
 }
 
 src_install() {
@@ -26,4 +24,5 @@ src_install() {
 	rm -f ${D}${CROSS_SYSROOT}/{etc,usr/bin,usr/sbin}/*
 	rm -fr ${D}${CROSS_LIBDIR}/*/
 	rm -fr ${D}${CROSS_DATADIR}/{i18n,locale,zoneinfo}/
+	rm -f ${D}/var/db/Makefile
 }

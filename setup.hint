@@ -1,9 +1,7 @@
 category: Devel
 requires: linux-i686-kernel-headers
 sdesc: "glibc for Linux i686 toolchain"
-ldesc: "The GNU C Library is the standard system C library for all GNU 
-systems, and is an important part of what makes up a GNU system.  It 
-provides the system API for all programs written in C and C-compatible 
-languages such as C++ and Objective C; the runtime facilities of other 
-programming languages use the C library to access the underlying 
-operating system."
+ldesc: "This package does NOT contain cygwin binaries.  Instead, it
+contains Linux i686 binaries.  It is for use with the
+linux-i686-gcc cross compiler, and installs into the
+/usr/i686-pc-linux-gnu/sys-root/usr/{lib,include} directories."
