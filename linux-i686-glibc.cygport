@@ -1,10 +1,19 @@
 CROSS_HOST="i686-pc-linux-gnu"
-ORIG_PN="glibc"
 inherit cross
 
-DESCRIPTION="glibc for Linux i686 toolchain"
+NAME="linux-i686-glibc"
+VERSION=2.15
+RELEASE=1
+CATEGORY="Devel"
+SUMMARY="glibc for Linux i686 toolchain"
+DESCRIPTION="This package does NOT contain cygwin binaries.  Instead, it
+contains Linux i686 binaries.  It is for use with the
+linux-i686-gcc cross compiler, and installs into the
+/usr/i686-pc-linux-gnu/sys-root/usr/{lib,include} directories."
+REQUIRES="linux-armv7hl-kernel-headers"
 HOMEPAGE="http://www.gnu.org/software/libc/"
-SRC_URI="mirror://gnu/glibc/glibc-${PV}.tar.xz"
+SRC_URI="mirror://gnu/glibc/glibc-${VERSION}.tar.xz"
+SRC_DIR="glibc-${VERSION}"
 PATCH_URI="http://www.linuxfromscratch.org/patches/downloads/glibc/glibc-2.13-gcc_fix-1.patch"
 
 DIFF_EXCLUDES="manual"
@@ -23,6 +32,7 @@ src_install() {
 
 	rm -f ${D}${CROSS_SYSROOT}/{etc,usr/bin,usr/sbin}/*
 	rm -fr ${D}${CROSS_LIBDIR}/*/
+	rm -fr ${D}${CROSS_PREFIX}/libexec/
 	rm -fr ${D}${CROSS_DATADIR}/{i18n,locale,zoneinfo}/
 	rm -f ${D}/var/db/Makefile
 }
