@@ -1,0 +1,13 @@
+--- origsrc/glibc-2.19/sunrpc/rpc_main.c	2014-02-07 03:04:38.000000000 -0600
++++ src/glibc-2.19/sunrpc/rpc_main.c	2014-05-14 15:21:50.705688300 -0500
+@@ -57,6 +57,10 @@
+ #define EXTEND	1		/* alias for TRUE */
+ #define DONT_EXTEND	0	/* alias for FALSE */
+ 
++#ifdef __CYGWIN__
++#define stat64 stat
++#endif
++
+ struct commandline
+   {
+     int cflag;			/* xdr C routines */

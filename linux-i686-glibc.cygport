@@ -2,7 +2,7 @@ CROSS_HOST="i686-pc-linux-gnu"
 inherit cross
 
 NAME="linux-i686-glibc"
-VERSION=2.15
+VERSION=2.19
 RELEASE=1
 CATEGORY="Devel"
 SUMMARY="glibc for Linux i686 toolchain"
@@ -14,14 +14,19 @@ REQUIRES="linux-armv7hl-kernel-headers"
 HOMEPAGE="http://www.gnu.org/software/libc/"
 SRC_URI="mirror://gnu/glibc/glibc-${VERSION}.tar.xz"
 SRC_DIR="glibc-${VERSION}"
-PATCH_URI="http://www.linuxfromscratch.org/patches/downloads/glibc/glibc-2.13-gcc_fix-1.patch"
+PATCH_URI="2.19-cross-rpcgen.patch"
 
 DIFF_EXCLUDES="manual"
 
 src_compile() {
+	LDFLAGS=
+
 	cd ${B}
-	cygconf
-	cygmake -j1 PARALLELMFLAGS="${MAKEOPTS}"
+	# prevent cygconf from clobbering this, it's not a generated file
+	mv ${S}/Makefile{,.bak}
+	cygconf --enable-obsolete-rpc
+	mv ${S}/Makefile{.bak,}
+	cygmake -j1 BUILD_LDFLAGS=-lintl PARALLELMFLAGS="${MAKEOPTS}"
 }
 
 src_install() {
@@ -34,5 +39,5 @@ src_install() {
 	rm -fr ${D}${CROSS_LIBDIR}/*/
 	rm -fr ${D}${CROSS_PREFIX}/libexec/
 	rm -fr ${D}${CROSS_DATADIR}/{i18n,locale,zoneinfo}/
-	rm -f ${D}/var/db/Makefile
+	rm -f ${D}${CROSS_SYSROOT}/var/db/Makefile
 }
